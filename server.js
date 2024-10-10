@@ -5,6 +5,7 @@ const app= express();
 const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));;
 app.use(express.static("public"));
+app.use(express.json());
 app.set('view engine', 'ejs');
 
 const blogs = {};
@@ -25,7 +26,6 @@ app.post('/post', (req, res)=>{
     let title = req.body.title;
     let blogContent = req.body.blog;
     let id = Date.now();
-    console.log(Date.now());
     blogs[id] = {title: title, blogContent: blogContent};
     res.redirect('/');
 })
@@ -42,7 +42,6 @@ app.get('/:id', (req, res)=>{
 
 app.get('/editpost/:id', (req, res)=>{
     let id = req.params.id;
-    console.log(blogs[id].title);
     if(blogs[id]){
         res.render('edit.ejs', {postEdit: blogs[id].blogContent, postTitle: blogs[id].title, postId: id});
     }else{
@@ -50,12 +49,27 @@ app.get('/editpost/:id', (req, res)=>{
     }
 })
 
+app.put('/update/:id', (req, res)=>{
+    let id = req.params.id;
+    let updatedTitle = req.body.title;
+    let updatedContent = req.body.blogArea;
+    blogs[id].title = updatedTitle;
+    blogs[id].blogContent = updatedContent;
+    res.status(200).send('Updated');
+})
+
+//todo :: make this function work
 app.delete('/delete/:id', (req, res)=>{
     let id = req.params.id;
-    if(blogs[id]){}
+    if(blogs[id]){
+        delete blogs[id];
+        res.send(200).send('Blog deleted');
+    }else{
+        res.status(404).send('Blog not found');
+    }
 })
 
 
 app.listen(port, ()=>{
-    console.log(`App is live on prot:${port}`);
+    console.log(`App is live on port:${port}`);
 })
