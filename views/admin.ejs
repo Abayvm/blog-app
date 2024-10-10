@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Admin</h1>
+    <button type="button" name="blogMaker" onClick="redirectBlog()">+ write a blog</button><br><br>
+    <% for(let id in posts){ %>
+        <%= posts[id].title %>
+        <button type="button" name="dlt" onclick="deletePost('<%= id %>')">dlt</button>
+        <button type="button" name="edt" onclick="editPost( '<%= id %>' )">edt</button>
+        <br>
+    <% } %>
+    <script>
+        function redirectBlog(){
+            window.location.href = '/writeblog';
+        }
+        function deletePost(blogId){
+            if(confirm('Delete this blog?')){
+                fetch( `/delete/${blogId}`, {
+                    method: 'DELETE',
+                })
+                .then(response =>{
+                    if(response.ok){
+                        alert("Deleted");
+                        window.location.reload();
+                    }else{
+                        alert("Failed to delete");
+                    }
+                })
+                
+            }
+        }
+        function editPost(postId) {
+            window.location.href = `/editpost/${postId}`;
+        }
+    </script>
+</body>
+</html>

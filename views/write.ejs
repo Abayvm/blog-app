@@ -1,0 +1,7 @@
+<%- include('partials/links.ejs') %>
+<form action="/post" method="post">
+    <input type="text" name="title" width="350px" placeholder="Blog Title"><br>
+    <textarea rows="25" cols="70" name="blog"></textarea>
+    <button type="submit">Post</button>
+</form>
+<%- include('partials/footer.ejs') %>

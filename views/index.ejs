@@ -1,0 +1,14 @@
+<%- include('partials/links.ejs') %>
+    <h1 class="platformName">Abay logs</h1>
+    <script src="server.js"></script>
+    <a href="/admin">admin</a>
+    <div name="blogs">
+        <% for (let id in posts) { %> 
+            <h3><%= posts[id].title %></h3> 
+            <% let partialScript = posts[id].blogContent.slice(0, 150) %> 
+            <p><%- partialScript %> <a href="/<%= id %>">...read more</a></p>
+            <hr>
+        <% } %>
+    </div>
+
+<%- include('partials/footer.ejs') %>

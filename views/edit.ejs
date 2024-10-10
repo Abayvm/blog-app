@@ -1,0 +1,14 @@
+<%- include('partials/links.ejs') %>
+    <div>
+        <input type="text" name="title" value="<%= postTitle %>"><br>
+        <textarea rows="25" cols="70" name="blogArea"><%= postEdit %></textarea>
+        <button type="submit" method="/update" onclick="updateBlog('<%= postId %>')">Make change</button>
+    </div>
+    <script>
+        function updateBlog(blogId){
+            fetch(`/update/${blogId}`,{
+                method: 'PUT'
+            })
+        }
+    </script>
+<%- include('partials/footer.ejs') %>
