@@ -49,13 +49,13 @@ app.get('/editpost/:id', (req, res)=>{
     }
 })
 
-app.put('/update/:id', (req, res)=>{
+app.post('/update/:id', (req, res)=>{
     let id = req.params.id;
     let updatedTitle = req.body.title;
     let updatedContent = req.body.blogArea;
     blogs[id].title = updatedTitle;
     blogs[id].blogContent = updatedContent;
-    res.status(200).send('Updated');
+    res.status(200).redirect('/admin');
 })
 
 //todo :: make this function work

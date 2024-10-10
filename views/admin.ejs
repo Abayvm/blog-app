@@ -8,6 +8,7 @@
 <body>
     <h1>Admin</h1>
     <button type="button" name="blogMaker" onClick="redirectBlog()">+ write a blog</button><br><br>
+    <a href="/">home</a><br>
     <% for(let id in posts){ %>
         <%= posts[id].title %>
         <button type="button" name="dlt" onclick="deletePost('<%= id %>')">dlt</button>
